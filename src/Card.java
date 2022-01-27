@@ -46,12 +46,8 @@ public class Card {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
 
-        if (this.num == ((Card) o).getNum()) return true;
-
-        return true;
+        return this.num == ((Card) o).getNum() && this.suit == ((Card) o).getSuit();
     }
 
     public String getCode(){ return code; }

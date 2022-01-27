@@ -15,14 +15,13 @@ public class Deck {
                 count++;
             }
         }
-
+        System.out.println(cards);
         System.out.println("\nDeck Created\n");
 
         try {
-            for (int i = 1; i <= 5; i++) {
+            for (int i = 1; i <= 100; i++) {
                 System.out.printf("Shuffle: %d\n", i);
                 shuffle();
-                printDeck(cards);
 
             }
         }catch(ExceptionInInitializerError ex){
@@ -35,41 +34,42 @@ public class Deck {
      */
     private void shuffle() throws ExceptionInInitializerError{
         ArrayList<Card> temp = new ArrayList<>(cards);
+        cards = new ArrayList<>(52);
         int templength = temp.size();
-        System.out.println(cards.size());
         for (int i = 0; i < temp.size(); i++) {
 
             int pos = (int) (Math.random() * templength);
 
             cards.add(pos,temp.get(i));
-            System.out.println(cards.get(pos));
-            cards.remove(i+1);
             temp.remove(pos);
             templength--;
 
         }
-        printDeck(cards);
+
 
         if(!isDistinct()) {
-            System.out.print(isDistinct());
-            throw new ExceptionInInitializerError();
+            System.out.println(isDistinct());
         }
+        else
+            throw new ExceptionInInitializerError();
+
 
         if(isFull())
             System.out.print("full \n");
 
+
+        printDeck();
     }
     public boolean isDistinct(){
 
-        for (Card a: cards) {
-            for(Card b: cards){
-                if(a.equals(b))
+        for (int i = 0; i < 52; i++) {
+            for (int j = 1; j < 52; j++) {
+                if (cards.get(i).equals(cards.get(j)))
                     return false;
             }
         }
         return true;
     }
-
     public boolean isFull(){
         return cards.size() == 52;
     }
@@ -88,7 +88,6 @@ public class Deck {
 
             cards = post;
     }
-
     @Override
     public String toString() {
         String fin = null;
@@ -98,10 +97,9 @@ public class Deck {
 
         return fin;
     }
-
-    private void printDeck(ArrayList<Card> deck){
+    private void printDeck(){
         //System.out.print(cards.forEach());
-        for (Card a:deck) {
+        for (Card a:this.cards) {
             System.out.print(a);
         }
         System.out.print("\n");
